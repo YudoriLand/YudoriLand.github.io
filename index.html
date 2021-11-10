@@ -3,80 +3,19 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <style>
-        html{
-            box-sizing: border-box;
-            background-image: url(assets/images/yuri_gif/yuri_shake.gif);
-        }
-        *,
-        *:before,
-        *:after{
-            box-sizing: inherit;
-        }
-        .flex-box{
-            display: flex;
-            flex-wrap: nowrap;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-            font-size: 1rem;
-            padding-left: 1rem;
-            padding-right: 1rem;
-            height: auto;
-            overflow: visible;
-            text-align: left;
-        }
-        main{
-            padding-top:2rem;
-        }
-        .flex-box.list{
-            border:solid;
-            background-color:white;
-        }
-        .svg_logo{
-            width: 300px;
-            height: auto;
-        }
-        .flex-box.list{
-            flex-direction: row;
-        }
-        i{
-            font-size: 2rem;
-        }
-        .run_yuri{
-            width: 70px;
-        }
-        a{
-            color: blue;
-            text-decoration: none;
-            padding-right: 1rem;
-        }
-        a:visited{
-            color: blue;
-        }
-        a:hover{
-            color:cornflowerblue;
-        }
-        a:active{
-            color:deepskyblue;
-        }
-    </style>
-   
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-<div class="flex-box logo">
-    <img class="svg_logo" src="assets/images/logo/yuri_land_logo.svg">
-</div>
+    <header class="flex-box margin-top">
+        <div class="margin-bottom">
+            <img class="svg_logo" src="/assets/images/logo/yuri_land_logo.svg">
+        </div>
+    </header>
 
-<main class="flex-box main">
-<div class="flex-box">
-<div class="flex-box list">
-    <img class="run_yuri" src="assets/images/yuri_gif/yuri_run.gif"><a href="#"><i>달려라 윾돌이!</i></a>
-</div>    
-</div>
-</main>
-
-</body>
-
-</html>
+    <main class="flex-box margin-top">
+        <div class="flex-box list margin-bottom">
+            <img class="run_yuri" src="assets/images/yuri_gif/yuri_run.gif"><a href="game/yuri_run.html"><i>달려라 윾돌이!</i></a>
+        </div>
+    </main>
+</body></html>

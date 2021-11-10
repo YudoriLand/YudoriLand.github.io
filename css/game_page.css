@@ -1,0 +1,58 @@
+:root {
+    --aspect-ratio: calc(853 / 480);
+    --inverse-aspect-ratio: calc(480 / 853);
+    --canvas-width: 96vmin;
+    --canvas-height: calc(96vmin * var(--inverse-aspect-ratio));
+    --yudori-width: 15vmin;
+}
+
+@media only screen and (min-width:853px) {
+    :root {
+        --canvas-height: 480px;
+        --canvas-width: 853px;
+    }
+}
+
+@media only screen and (max-width: 853px) {
+    :root {
+        --canvas-width: 96vw;
+        --canvas-height: calc(96vw * var(--inverse-aspect-ratio));
+    }
+}
+
+html {
+    box-sizing: border-box;
+    background-image: url(/assets/images/yuri_gif/yuri_shake.gif);
+}
+
+.flex-box {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: stretch;
+    height: 100vh;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.game-canvas {
+    position: relative;
+    border: solid;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    width: var(--canvas-width);
+    height: var(--canvas-height);
+    
+
+}
+.yudori{
+    position:absolute;
+    left: 0;
+    bottom: 0;
+    padding-left: 10px;
+    width:var(--yudori-width);
+}

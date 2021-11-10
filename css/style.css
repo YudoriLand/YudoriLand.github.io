@@ -1,0 +1,71 @@
+html{
+    box-sizing: border-box;
+    background-image: url(/assets/images/yuri_gif/yuri_shake.gif);
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+.flex-box {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    height: auto;
+    overflow: visible;
+    text-align: left;
+}
+
+.margin-top {
+    margin-top: 1rem;
+}
+
+.margin-bottom {
+    margin-bottom: 1rem;
+}
+
+.list {
+    border: solid;
+    background-color: white;
+}
+
+.svg_logo {
+    width: 300px;
+}
+
+.list {
+    flex-direction: row;
+}
+
+i {
+    font-size: 2rem;
+}
+
+.run_yuri {
+    width: 70px;
+}
+
+a {
+    color: blue;
+    text-decoration: none;
+    padding-right: 1rem;
+}
+
+a:visited {
+    color: blue;
+}
+
+a:hover {
+    color: cornflowerblue;
+}
+
+a:active {
+    color: deepskyblue;
+}
