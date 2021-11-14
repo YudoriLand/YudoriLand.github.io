@@ -9,12 +9,26 @@
 </head>
 
 <body>
-    <div class="flex-box">
-        <div id="game-box" class="game-box">
-           <canvas id="canvas">
-               
-           </canvas>
+    <header class="flex-box margin-top">
+        <div class="margin-bottom">
+            <a href="/index.html"><img class="svg_logo" src="/assets/images/logo/yuri_land_logo.svg"></a>
         </div>
+    </header>
+    <main class="flex-box">
+        <div id="game-box" class="game-box">
+            <canvas id="canvas">
+            </canvas>
+
+        </div>
+        <button type="button" id="restart-button" class="restart-button" onclick="restart_click()">
+            다시하기
+        </button>
+    </main>
+
+    <div id="manual" class="flex-box margin-top">
+        <button type="button" id="jump-button" class="jump-button" onclick="jump_click()">
+            Space bar
+        </button>
     </div>
-    <script src="/js/yuri_run.js">     </script>
+    <script src="/js/yuri_run.js"></script>
 </body></html>

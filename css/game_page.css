@@ -1,15 +1,26 @@
+
+html{
+    box-sizing: border-box;
+    background-image: url(/assets/images/yuri_gif/yuri_shake.gif);
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
 :root {
     --aspect-ratio: calc(853 / 480);
     --inverse-aspect-ratio: calc(480 / 853);
     --canvas-width: 96vmin;
     --canvas-height: calc(96vmin * var(--inverse-aspect-ratio));
-    --yudori-width: 15vmin;
+    --font-size: 2rem;
 }
-
 @media only screen and (min-width:853px) {
     :root {
         --canvas-height: 480px;
         --canvas-width: 853px;
+        --font-size: 2rem;
     }
 }
 
@@ -17,6 +28,7 @@
     :root {
         --canvas-width: 96vw;
         --canvas-height: calc(96vw * var(--inverse-aspect-ratio));
+        --font-size : 1rem;
     }
 }
 
@@ -25,7 +37,21 @@ html {
     background-image: url(/assets/images/yuri_gif/yuri_shake.gif);
     overflow:hidden;
 }
-
+body{
+    display: flex;
+    flex-direction: column;
+}
+.flex-box {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+/*
 .flex-box {
     position: relative;
     display: flex;
@@ -37,32 +63,60 @@ html {
     margin-left: auto;
     margin-right: auto;
 }
-#canvas{
-    display: inline;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    background-color: white;
-}
+*/
+
 .game-box {
     position: relative;    
     border: solid;
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    margin: auto;
     background-color: white;
     width: var(--canvas-width);
     height: var(--canvas-height);
-    
-
 }
-.yudori{
+
+#canvas{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+}
+.restart-button{
+    text-align: center;
     position:absolute;
-    left: 0;
-    bottom: 0;
-    padding-left: 10px;
-    width:var(--yudori-width);
+    border: solid 3px;
+    width: 20vmin;
+    height: 4vw;
+    font-size: var(--font-size);
+}
+#manual{
+    position:relative;
+    text-align: center;
+    width:inherit;
+    margin-left: auto;
+    margin-right: auto;
+}
+#jump-button{
+    border: solid 3px;
+    width: 50vmin;
+    height: 6vw;
+    font-size: var(--font-size);
+}
+#restart-button:hover, #jump-button:hover{
+    color:deepskyblue;
+}
+#restart-button:active, #jump-button:active{
+    color:blue;
 }
 
+.margin-top {
+    margin-top: 1rem;
+}
+
+.margin-bottom {
+    margin-bottom: 1rem;
+}
+
+.svg_logo {
+    width: 300px;
+}
