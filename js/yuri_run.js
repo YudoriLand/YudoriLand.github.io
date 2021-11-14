@@ -145,9 +145,9 @@ class Cloud {
 }
 
 function drawTrap() {
-    var trapSpeed = Math.floor((Math.random() * 20) + 7);
+    var trapSpeed = Math.floor((Math.random() * 25) + 7);
 
-    if (timer % 60 === 0) {
+    if (timer % 40 === 0) {
         var trap = new Trap(trapSpeed);
         arrTrap.push(trap);
     }
