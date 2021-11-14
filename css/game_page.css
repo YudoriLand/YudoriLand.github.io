@@ -16,6 +16,7 @@ html{
     --canvas-height: calc(96vmin * var(--inverse-aspect-ratio));
     --font-size: 2rem;
 }
+
 @media only screen and (min-width:853px) {
     :root {
         --canvas-height: 480px;
@@ -32,6 +33,14 @@ html{
     }
 }
 
+@media screen and (min-width:768px){
+    .visible-xs{display:none;}
+    .hidden-xs{display:block;}
+}
+@media screen and (max-width:768px){
+    .visible-xs{display:block;}
+    .hidden-xs{display:none;}
+}
 html {
     box-sizing: border-box;
     background-image: url(/assets/images/yuri_gif/yuri_shake.gif);
@@ -51,19 +60,6 @@ body{
     padding-left: 1rem;
     padding-right: 1rem;
 }
-/*
-.flex-box {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: stretch;
-    height: 100vh;
-    margin-left: auto;
-    margin-right: auto;
-}
-*/
 
 .game-box {
     position: relative;    
@@ -96,11 +92,17 @@ body{
     margin-left: auto;
     margin-right: auto;
 }
-#jump-button{
+.jump-button.hidden-xs{
     border: solid 3px;
     width: 50vmin;
     height: 6vw;
     font-size: var(--font-size);
+}
+.jump-button.visible-xs{
+    border: solid 5px;
+    width: 40vmin;
+    height: 30vw;
+    font-size: 3rem;
 }
 #restart-button:hover, #jump-button:hover{
     color:deepskyblue;
