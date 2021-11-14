@@ -46,6 +46,14 @@ function loadJQuery() {
 }
 loadJQuery();
 
+function preloading (imageArray) { 
+    let n = imageArray.length; 
+    for (let i = 0; i < n; i++) { 
+        let img = new Image(); img.src = imageArray[i]; 
+    } 
+} 
+preloading(files_arr);
+
 function reloadDivArea() {
     $('#divReloadLayer').load(location.href+' #divReloadLayer');
 }
@@ -101,14 +109,6 @@ $(document).ready(function() {
     .click(function(e) { $('#result').html(e.timeStamp - startTime); });
 });
 
-function preloading (imageArray) { 
-    let n = imageArray.length; 
-    for (let i = 0; i < n; i++) { 
-        let img = new Image(); img.src = imageArray[i]; 
-    } 
-} 
-preloading(files_arr);
-
 document.documentElement.addEventListener('touchstart', function (event) {
      if (event.touches.length > 1) {
           event.preventDefault(); 
@@ -123,6 +123,7 @@ document.documentElement.addEventListener('touchend', function (event) {
           event.preventDefault(); 
         } lastTouchEnd = now; 
     }, false);
+
 
 class Player {
     constructor(img, pow) {

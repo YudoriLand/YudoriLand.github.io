@@ -15,6 +15,13 @@ html{
     --canvas-width: 96vmin;
     --canvas-height: calc(96vmin * var(--inverse-aspect-ratio));
     --font-size: 2rem;
+    --view-port-width: 100vw;
+    --view-port-height: 100vh;
+    --jump-btn-margin: calc((100vmax * 0.05));
+}
+
+@media only screen and (max-width:640px) and (aspect-ratio:9/16), screen and (max-width:640px) and (aspect-ratio:16/9){ 
+    --jump-btn-margin: 5rem;
 }
 
 @media only screen and (min-width:853px) {
@@ -22,6 +29,7 @@ html{
         --canvas-height: 480px;
         --canvas-width: 853px;
         --font-size: 2rem;
+        
     }
 }
 
@@ -33,12 +41,17 @@ html{
     }
 }
 
-@media only screen and (max-height:800px){
+@media only screen and (min-width: 50vh), (max-height: 50vw){
     header{
         display: none !important;
     }
 }
 
+@media only screen and (max-width: 50vh), (min-height: 50vw){
+    header{
+        display:inherit !important;
+    }
+}
 
 html {
     box-sizing: border-box;
@@ -64,7 +77,6 @@ body{
     position: relative;    
     border: solid;
     display: block;
-    margin: auto;
     background-color: white;
     width: var(--canvas-width);
     height: var(--canvas-height);
@@ -81,7 +93,7 @@ body{
     position:absolute;
     border: solid 3px;
     width: 20vmin;
-    height: 4vw;
+    height: auto;
     font-size: var(--font-size);
 }
 #manual{
@@ -92,9 +104,10 @@ body{
     margin-right: auto;
 }
 .jump-button{
+    margin-top: var(--jump-btn-margin);
     border: solid 3px;
-    width: 50vmin;
-    height: 5vw;
+    width: 40vw;
+    height: 10vh;
     font-size: var(--font-size);
 }
 
@@ -114,5 +127,6 @@ body{
 }
 
 .svg_logo {
-    width: 300px;
+    width: 40vmin;
+    height: auto;
 }
