@@ -37,69 +37,69 @@ var score = 0;
 
 btnRestart.style.visibility = "hidden";
 
-//function loadJQuery() {
-//    var oScript = document.createElement("script");
-//    oScript.type = "text/javascript";
-//    oScript.charset = "utf-8";		  
-//    oScript.src = "/js/jquery-3.6.0.js";	
-//    document.getElementsByTagName("head")[0].appendChild(oScript);
-//}
-//loadJQuery();
-//
-//function reloadDivArea() {
-//    $('#divReloadLayer').load(location.href+' #divReloadLayer');
-//}
-//
-//function NoClickDelay(el) {
-//	this.element = el;
-//	if( window.Touch ) this.element.addEventListener('touchstart', this, false);
-//}
-//
-//NoClickDelay.prototype = {
-//	handleEvent: function(e) {
-//		switch(e.type) {
-//			case 'touchstart': this.onTouchStart(e); break;
-//			case 'touchmove': this.onTouchMove(e); break;
-//			case 'touchend': this.onTouchEnd(e); break;
-//		}
-//	},
-//
-//	onTouchStart: function(e) {
-//		e.preventDefault();
-//		this.moved = false;
-//
-//		this.element.addEventListener('touchmove', this, false);
-//		this.element.addEventListener('touchend', this, false);
-//	},
-//
-//	onTouchMove: function(e) {
-//		this.moved = true;
-//	},
-//
-//	onTouchEnd: function(e) {
-//		this.element.removeEventListener('touchmove', this, false);
-//		this.element.removeEventListener('touchend', this, false);
-//
-//		if( !this.moved ) {
-//			var theTarget = document.elementFromPoint(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
-//			if(theTarget.nodeType == 3) theTarget = theTarget.parentNode;
-//
-//			var theEvent = document.createEvent('MouseEvents');
-//			theEvent.initEvent('click', true, true);
-//			theTarget.dispatchEvent(theEvent);
-//		}
-//	}
-//};
-//
-//$(document).ready(function() {
-//  $('.noclickdelay').each(function(i,node) {
-//    new NoClickDelay(node);
-//  });
-//  var startTime;
-//  $('button')
-//    .bind('touchstart', function(e) { startTime = e.timeStamp; })
-//    .click(function(e) { $('#result').html(e.timeStamp - startTime); });
-//});
+function loadJQuery() {
+    var oScript = document.createElement("script");
+    oScript.type = "text/javascript";
+    oScript.charset = "utf-8";		  
+    oScript.src = "/js/jquery-3.6.0.js";	
+    document.getElementsByTagName("head")[0].appendChild(oScript);
+}
+loadJQuery();
+
+function reloadDivArea() {
+    $('#divReloadLayer').load(location.href+' #divReloadLayer');
+}
+
+function NoClickDelay(el) {
+	this.element = el;
+	if( window.Touch ) this.element.addEventListener('touchstart', this, false);
+}
+
+NoClickDelay.prototype = {
+	handleEvent: function(e) {
+		switch(e.type) {
+			case 'touchstart': this.onTouchStart(e); break;
+			case 'touchmove': this.onTouchMove(e); break;
+			case 'touchend': this.onTouchEnd(e); break;
+		}
+	},
+
+	onTouchStart: function(e) {
+		e.preventDefault();
+		this.moved = false;
+
+		this.element.addEventListener('touchmove', this, false);
+		this.element.addEventListener('touchend', this, false);
+	},
+
+	onTouchMove: function(e) {
+		this.moved = true;
+	},
+
+	onTouchEnd: function(e) {
+		this.element.removeEventListener('touchmove', this, false);
+		this.element.removeEventListener('touchend', this, false);
+
+		if( !this.moved ) {
+			var theTarget = document.elementFromPoint(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
+			if(theTarget.nodeType == 3) theTarget = theTarget.parentNode;
+
+			var theEvent = document.createEvent('MouseEvents');
+			theEvent.initEvent('click', true, true);
+			theTarget.dispatchEvent(theEvent);
+		}
+	}
+};
+
+$(document).ready(function() {
+  $('.noclickdelay').each(function(i,node) {
+    new NoClickDelay(node);
+  });
+  var startTime;
+  $('button')
+    .bind('touchstart', function(e) { startTime = e.timeStamp; })
+    .click(function(e) { $('#result').html(e.timeStamp - startTime); });
+});
 
 function preloading (imageArray) { 
     let n = imageArray.length; 

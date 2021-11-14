@@ -3,9 +3,9 @@
 
 <head>
     <link rel="stylesheet" href="/css/game_page.css">
-
-    <script>
-    </script>
+    <meta content="initial-scale=1.0, user-scalable=no" >
+    <script class="jsbin" src="/js/jquery-3.6.0.js"></script>
+    <title>달려라 윾돌이</title>
 </head>
 
 <body>
@@ -26,9 +26,9 @@
     </main>
 
     <div id="manual" class="flex-box margin-top">
-        <button type="button" id="jump-button" class="jump-button" onmousedown="jump_click()" ontouchstart="jump_click()">
+        <button type="button" id="jump-button" class="noclickdelay jump-button" onmousedown="jump_click()" ontouchstart="jump_click()">
             Space bar
         </button>
     </div>
-    <script src="/js/yuri_run.js"></script>
+    <script src="/js/yuri_run.js" id="game-tag"></script>
 </body></html>
