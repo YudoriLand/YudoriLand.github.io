@@ -37,6 +37,14 @@ var score = 0;
 
 btnRestart.style.visibility = "hidden";
 
+function preloading (imageArray) { 
+    let n = imageArray.length; 
+    for (let i = 0; i < n; i++) { 
+        let img = new Image(); img.src = imageArray[i]; 
+    } 
+} 
+preloading(files_arr);
+
 class Player {
     constructor(img, pow) {
         this.pow = pow;
