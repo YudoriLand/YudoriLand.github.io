@@ -33,10 +33,17 @@ html{
     }
 }
 
+@media only screen and (max-height:800px){
+    header{
+        display: none !important;
+    }
+}
+
+
 html {
     box-sizing: border-box;
     background-image: url(/assets/images/yuri_gif/yuri_shake.gif);
-    overflow:hidden;
+    overflow:auto;
 }
 body{
     display: flex;
