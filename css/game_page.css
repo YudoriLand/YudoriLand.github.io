@@ -33,14 +33,6 @@ html{
     }
 }
 
-@media screen and (min-width:768px){
-    .visible-xs{display:none;}
-    .hidden-xs{display:block;}
-}
-@media screen and (max-width:768px){
-    .visible-xs{display:block;}
-    .hidden-xs{display:none;}
-}
 html {
     box-sizing: border-box;
     background-image: url(/assets/images/yuri_gif/yuri_shake.gif);
@@ -92,18 +84,13 @@ body{
     margin-left: auto;
     margin-right: auto;
 }
-.jump-button.hidden-xs{
+.jump-button{
     border: solid 3px;
     width: 50vmin;
-    height: 6vw;
+    height: 10vw;
     font-size: var(--font-size);
 }
-.jump-button.visible-xs{
-    border: solid 5px;
-    width: 40vmin;
-    height: 30vw;
-    font-size: 3rem;
-}
+
 #restart-button:hover, #jump-button:hover{
     color:deepskyblue;
 }
