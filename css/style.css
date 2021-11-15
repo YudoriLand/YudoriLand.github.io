@@ -48,9 +48,9 @@ html{
 #update-page{
     flex-direction: row;
     justify-content: center;
+    color:black;
     font-size: 1rem;
     font-weight: bold;
-    color:black;
     text-shadow: 1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
 }
 .update-link:active{

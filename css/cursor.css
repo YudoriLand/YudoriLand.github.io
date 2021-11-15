@@ -1,0 +1,14 @@
+*{
+    cursor: url(/assets/images/yuri_png/mouse_empty.png), auto;
+}
+
+.cursor {
+    background-image: url(/assets/images/yuri_gif/yuri_tail.gif);
+    position: absolute;
+    left : 0;
+    top : 0;
+    width: 2.8rem;
+    height: 2.8rem;
+    transform: translate(-20%, -20%);
+    pointer-events: none;
+}
