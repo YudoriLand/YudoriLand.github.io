@@ -1,5 +1,5 @@
 var files_arr = ['/assets/images/yuri_png/yuri_run_1.png', '/assets/images/yuri_png/yuri_run_2.png', '/assets/images/yuri_png/yuri_run_3.png', '/assets/images/yuri_png/yuri_run_4.png',
-'/assets/images/yuri_png/yuri_heaven_.png'];
+'/assets/images/yuri_png/yuri_heaven_.png', '/assets/images/object/bed.png'];
 var arrColor = ["powderblue", "lightSteelBlue", "lightBlue", "skyBlue"];
 var isJump = false;
 var isPeak = false;
@@ -225,7 +225,7 @@ class Cloud {
 }
 
 function drawTrap() {
-    var trapSpeed = Math.floor((Math.random() * 25) + 7);
+    var trapSpeed = Math.floor((Math.random() * 20) + 8);
 
     if (timer % 40 === 0) {
         var trap = new Trap(trapSpeed);
@@ -246,7 +246,8 @@ function drawTrap() {
         }
     }
 }
-
+var trapImg = new Image();
+trapImg.src = files_arr[5];
 class Trap {
     constructor(speed) {
         this.x1 = 0;
@@ -261,13 +262,14 @@ class Trap {
     }
     draw() {
         ctx.beginPath();
-        ctx.fillStyle = "purple";
+//        ctx.fillStyle = "purple";
         ctx.moveTo(this.x + this.x1, this.y + this.y1);
         ctx.lineTo(this.x + this.x2, this.y + this.y1);
         ctx.lineTo(this.x + this.x3, this.y + this.y2);
         ctx.closePath();
-        ctx.stroke();
-        ctx.fill();
+//        ctx.stroke();
+//        ctx.fill();
+        ctx.drawImage(trapImg, this.x, this.y, this.x2 * 2, this.y2 * 2)
     }
 }
 

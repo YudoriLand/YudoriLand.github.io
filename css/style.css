@@ -31,41 +31,51 @@ html{
     margin-bottom: 1rem;
 }
 
-.list {
+.svg_logo {
+    width: 30vmin;
+}
+
+.game-list {
+    flex-direction: row;
     border: solid;
     background-color: white;
 }
 
-.svg_logo {
-    width: 300px;
-}
-
-.list {
-    flex-direction: row;
-}
-
-i {
+.game-name {
     font-size: 2rem;
 }
 
-.run_yuri {
+#update-page{
+    flex-direction: row;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: bold;
+    color:black;
+    text-shadow: 1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+}
+
+.yuri_con {
     width: 70px;
 }
 
-a {
+.game-link {
     color: blue;
     text-decoration: none;
     padding-right: 1rem;
 }
 
-a:visited {
+.game-link:visited {
     color: blue;
 }
 
-a:hover {
+.game-link:hover {
     color: cornflowerblue;
 }
 
-a:active {
+.game-link:active {
     color: deepskyblue;
+}
+
+.update-link:visited{
+    color: black;
 }
