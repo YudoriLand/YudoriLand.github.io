@@ -1,41 +1,69 @@
 var files_arr = ['/assets/images/yuri_png/yuri_run_1.png', '/assets/images/yuri_png/yuri_run_2.png', '/assets/images/yuri_png/yuri_run_3.png', '/assets/images/yuri_png/yuri_run_4.png',
-'/assets/images/yuri_png/yuri_heaven_.png', '/assets/images/object/bed.png'];
+'/assets/images/yuri_png/yuri_sleep.png', '/assets/images/object/bed.png'];
 var arrColor = ["powderblue", "lightSteelBlue", "lightBlue", "skyBlue"];
+
+var btnRestart = document.getElementById('restart-button');
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+
 var isJump = false;
 var isPeak = false;
 var isGround = true;
 var isDead = false;
-var game_box = document.getElementById('game-box');
-var btnRestart = document.getElementById('restart-button');
-var canvas = document.getElementById('canvas');
-var ctx = canvas.getContext('2d');
+var init = false;
 
 var timer = 0;
 var randColor = 0;
 var randSpeed = 0;
 var createCloud = 0;
+var lastTouchEnd = 0;
 var frame = 0;
-var game_boxHeight = game_box.clientHeight;
-var game_boxWidth = game_box.clientWidth;
 
 var canvasWidth = canvas.width;
 var canvasHeight = canvas.height;
 var valRatio = canvasHeight * 0.005;
 
+var minTrapSpeed = 8;
+var maxTrapSpeed = 27;
+var randTrapSpeed;
+
+var minCloudSpeed = 10;
+var maxCloudSpeed = 40;
+var randCloudSpeed;
+
+// create per frame
+var createCloudInterval = 1;
+var craeteTrapInterval = 40;
+
+// second per frame, second
+var SecPerFrame = 0.05;
+var frameIntervar;
+
 var jumpPow = 10 * valRatio;
 var velocity = 30 * valRatio;
 var gravity = 5 * valRatio;
-var currVelocity = velocity;
-var currJumpPow = gravity;
+var currVelocity;
+var currJumpPow;
+
 var arrCloud = [];
 var arrTrap = [];
+
 var img = new Image();
-var i = 0;
+var trapImg = new Image();
+
+var trapSpeed = 0;
 var currentY = 0;
 var rundist = 0;
 var score = 0;
+var i = 0;
 
-btnRestart.style.visibility = "hidden";
+var colorLength;
+var player;
+var scoretxt;
+var cloud;
+var trap;
+
+
 
 function loadJQuery() {
     var oScript = document.createElement("script");
@@ -53,6 +81,7 @@ function preloading (imageArray) {
     } 
 } 
 preloading(files_arr);
+trapImg.src = files_arr[5];
 
 function reloadDivArea() {
     $('#divReloadLayer').load(location.href+' #divReloadLayer');
@@ -115,7 +144,7 @@ document.documentElement.addEventListener('touchstart', function (event) {
         } 
     }, false);
 
-var lastTouchEnd = 0; 
+
 
 document.documentElement.addEventListener('touchend', function (event) {
      var now = (new Date()).getTime();
@@ -124,10 +153,40 @@ document.documentElement.addEventListener('touchend', function (event) {
         } lastTouchEnd = now; 
     }, false);
 
+// initialize
+function initValue(){
+    canvas = document.getElementById('canvas');
+    btnRestart.style.visibility = "hidden";
+    currJumpPow = jumpPow;
+    currVelocity = velocity;
+    
+    player = new Player(img);
+    scoretxt = new scoreText();
+    
+    timer = 0;
+    frame = 0;
+    score = 0;
+    rundist = 0;
+    trapSpeed = 0 ;
+    arrCloud = [];
+    arrTrap = [];
+    
+    isJump = false;
+    isPeak = false;
+    isGround = true;
+    isDead = false; 
+    
+    colorLength = arrColor.length;
+   
+    randTrapSpeed = (maxTrapSpeed - minTrapSpeed);
+    randCloudSpeed = (maxCloudSpeed - minCloudSpeed);
+    frameIntervar = SecPerFrame * 1000;
+}
 
+// player class
 class Player {
-    constructor(img, pow) {
-        this.pow = pow;
+    constructor(img) {
+        this.pow = 0;
         this.x = 0;
         this.y = canvasHeight;
         this.width = canvasWidth * 0.2;
@@ -138,8 +197,8 @@ class Player {
         ctx.drawImage(this.img, this.x, this.y - this.height - this.pow, this.width, this.height);
     }
 }
-var player = new Player(img, 0);
 
+// player jump
 function playerJump(player) {
     if (isJump && !isGround) {
         currVelocity -= gravity;
@@ -161,9 +220,9 @@ function playerJump(player) {
     }
 }
 
+// draw player
 function drawPlayer() {
     if (player === null) {
-
         return;
     } else {
         player.draw();
@@ -190,10 +249,10 @@ function drawPlayer() {
 
 }
 
-
+// draw background cloud
 function drawBackground() {
     if (timer % 1 === createCloud) {
-        var cloud = new Cloud(randColor, randSpeed);
+        cloud = new Cloud(randColor, randSpeed);
         arrCloud.push(cloud);
     }
     arrCloud.forEach((a) => {
@@ -208,6 +267,7 @@ function drawBackground() {
     }
 }
 
+// cloud class
 class Cloud {
     constructor(idx, speed) {
         this.x = canvasWidth;
@@ -224,11 +284,11 @@ class Cloud {
     }
 }
 
+// draw trap
 function drawTrap() {
-    var trapSpeed = Math.floor((Math.random() * 20) + 8);
-
-    if (timer % 40 === 0) {
-        var trap = new Trap(trapSpeed);
+    trapSpeed = Math.floor((Math.random() * randTrapSpeed) + minTrapSpeed);
+    if (timer % craeteTrapInterval === 0) {
+        trap = new Trap(trapSpeed);
         arrTrap.push(trap);
     }
 
@@ -246,8 +306,8 @@ function drawTrap() {
         }
     }
 }
-var trapImg = new Image();
-trapImg.src = files_arr[5];
+
+// trap class
 class Trap {
     constructor(speed) {
         this.x1 = 0;
@@ -273,22 +333,23 @@ class Trap {
     }
 }
 
+// check collision
 function checkCollision(player, trap) {
-    var playerWidth = player.width;
-    var playerHeight = player.height;
-    var trapWidth = Math.abs(trap.x2);
-    var trapHeigth = Math.abs(trap.y2);
+    let playerWidth = player.width;
+    let playerHeight = player.height;
+    let trapWidth = Math.abs(trap.x2);
+    let trapHeigth = Math.abs(trap.y2);
 
-    var x1 = playerWidth * 0.3;
-    var y1 = playerHeight * 0.5 + player.pow;
-    var x2 = trap.x + (trapWidth * 0.5);
-    var y2 = trapHeigth * 0.5;
-    var difX = x2 - x1;
-    var difY = y2 - y1;
-    var powVal = Math.pow(difX, 2) + Math.pow(difY, 2);
+    let x1 = playerWidth * 0.3;
+    let y1 = playerHeight * 0.5 + player.pow;
+    let x2 = trap.x + (trapWidth * 0.5);
+    let y2 = trapHeigth * 0.5;
+    let difX = x2 - x1;
+    let difY = y2 - y1;
+    let powVal = Math.pow(difX, 2) + Math.pow(difY, 2);
 
-    var minDist = playerHeight * 0.5 + trapHeigth * 0.5;
-    var distance = Math.sqrt(powVal);
+    let minDist = playerHeight * 0.5 + trapHeigth * 0.5;
+    let distance = Math.sqrt(powVal);
 
 
     if (playerWidth + trap.x3 > trap.x && player.pow < trapHeigth) {
@@ -301,6 +362,7 @@ function checkCollision(player, trap) {
 
 }
 
+// run distance
 class scoreText {
     constructor() {
         this.score = score;
@@ -315,13 +377,13 @@ class scoreText {
         ctx.fillText(score + " m", canvasWidth * 0.5, canvasHeight * 0.2);
     }
 }
-var scoretxt = new scoreText();
 
+// restart => initialize
 function restart_click() {
-    location.reload();
+    initValue();
 }
 
-
+// jump input
 function jump_click() {
     if (!isDead && !isJump) {
         isJump = true;
@@ -329,18 +391,21 @@ function jump_click() {
     }
 }
 
+// calculation run distance
 function calcScore() {
     if (!isDead) {
-        rundist += (timer * 0.0005);
+        rundist = (timer * SecPerFrame);
     }
 }
 
+// draw run distance
 function drawScore() {
     calcScore();
     scoretxt.draw();
     score = Math.floor(rundist);
 }
 
+// check spacedown input
 document.addEventListener('keydown', function (e) {
     if (e.code === 'Space' && !isDead) {
         isJump = true;
@@ -348,18 +413,17 @@ document.addEventListener('keydown', function (e) {
     }
 })
 
+// start play
 function playGame() {
     timer++;
-    game_boxHeight = game_box.clientHeight;
-    game_boxWidth = game_box.clientWidth;
     canvasWidth = canvas.width;
     canvasHeight = canvas.height;
 
     valRatio = canvasHeight * 0.005;
 
-    randColor = Math.floor((Math.random() * 4) + 0);
-    randSpeed = Math.floor((Math.random() * 30) + 10);
-    createCloud = Math.floor(Math.random() * 1);
+    randColor = Math.floor((Math.random() * colorLength));
+    randSpeed = Math.floor((Math.random() * randCloudSpeed) + minCloudSpeed);
+    createCloud = Math.floor(Math.random() * createCloudInterval);
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -374,4 +438,5 @@ function playGame() {
     }
 }
 
-setInterval(playGame, 50);
+initValue();
+setInterval(playGame, frameIntervar);
