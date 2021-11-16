@@ -1,9 +1,9 @@
 *{
-    cursor: url(/assets/images/yuri_png/mouse_empty.png), auto;
+    cursor: url(/src/assets/images/yuri_png/mouse_empty.png), auto;
 }
 
 .cursor {
-    background-image: url(/assets/images/yuri_gif/yuri_tail.gif);
+    background-image: url(/src/assets/images/yuri_gif/yuri_tail.gif);
     position: absolute;
     left : 0;
     top : 0;

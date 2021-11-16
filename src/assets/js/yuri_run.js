@@ -1,5 +1,5 @@
-var files_arr = ['/assets/images/yuri_png/yuri_run_1.png', '/assets/images/yuri_png/yuri_run_2.png', '/assets/images/yuri_png/yuri_run_3.png', '/assets/images/yuri_png/yuri_run_4.png',
-'/assets/images/yuri_png/yuri_sleep.png', '/assets/images/object/bed.png'];
+var files_arr = ['/src/assets/images/yuri_png/yuri_run_1.png', '/src/assets/images/yuri_png/yuri_run_2.png', '/src/assets/images/yuri_png/yuri_run_3.png', '/src/assets/images/yuri_png/yuri_run_4.png',
+'/src/assets/images/yuri_png/yuri_sleep.png', '/src/assets/images/object/bed.png'];
 var arrColor = ["powderblue", "lightSteelBlue", "lightBlue", "skyBlue"];
 
 var btnRestart = document.getElementById('restart-button');

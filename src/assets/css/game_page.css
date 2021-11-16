@@ -54,7 +54,7 @@ html{
 
 html {
     box-sizing: border-box;
-    background-image: url(/assets/images/yuri_gif/yuri_shake.gif);
+    background-image: url(/src/assets/images/yuri_gif/yuri_shake.gif);
     overflow:auto;
 }
 body{
