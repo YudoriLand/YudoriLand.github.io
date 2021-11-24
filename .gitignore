@@ -5,4 +5,11 @@ analytics.html
 .firebase/
 .firebaserc
 firebase.json
-.env.local
+.env
+firestore.indexes.json
+database.rules.json
+firebase_config.template.js
+firebase_config.js
+firestore.rules
+webpack.config.js
+webpack.dev.js

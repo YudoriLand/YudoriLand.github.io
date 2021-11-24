@@ -1,0 +1,262 @@
+:root {
+    --aspect-ratio: calc(853 / 480);
+    --inverse-aspect-ratio: calc(480 / 853);
+    --canvas-width: 96vmin;
+    --canvas-height: calc(96vmin * var(--inverse-aspect-ratio));
+    --font-size: 2rem;
+    --view-port-width: 100vw;
+    --view-port-height: 100vh;
+    --jump-btn-margin: calc((100vmax * 0.05));
+    --rank-font: 3vmin;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+    cursor: url(/src/resources/assets/images/yuri_png/mouse_empty.png), auto;
+}
+
+html{
+    box-sizing: border-box;
+    background-image: url(../resources/assets/images/yuri_gif/yuri_shake.gif);
+    overflow:auto;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@media only screen and (max-width:640px) and (aspect-ratio:9/16), screen and (max-width:640px) and (aspect-ratio:16/9){ 
+    :root{
+        --jump-btn-margin: 5rem;
+    }
+}
+
+@media only screen and (min-width:853px) {
+    :root {
+        --canvas-height: 480px;
+        --canvas-width: 853px;
+        --font-size: 2rem;
+        
+    }
+}
+
+@media only screen and (max-width: 853px) {
+    :root {
+        --canvas-width: 96vw;
+        --canvas-height: calc(96vw * var(--inverse-aspect-ratio));
+        --font-size : 1rem;
+    }
+}
+
+@media only screen and (min-width: 50vh), (max-height: 50vw){
+    header{
+        display: none !important;
+    }
+}
+
+@media only screen and (max-width: 50vh), (min-height: 50vw){
+    header{
+        display:inherit !important;
+    }
+}
+
+.cursor {
+    background-image: url(/src/resources/assets/images/yuri_gif/yuri_tail.gif);
+    position: absolute;
+    left : 0;
+    top : 0;
+    width: 2.8rem;
+    height: 2.8rem;
+    transform: translate(-20%, -20%);
+    pointer-events: none;
+}
+
+.flex-box {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    /* padding-left: 1rem;
+    padding-right: 1rem; */
+    height: auto;
+    overflow: visible;
+    /* text-align: left; */
+}
+#chart-title{
+    column-span: all;
+    text-align: center;
+}
+#warning{
+    visibility: hidden;
+    color: red;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+#rank-sheet{
+    display: flex;
+    flex-direction: column;
+    margin:0;
+    list-style: none;
+    overflow: scroll;
+    padding-left:0px;
+    background-color: white;
+    justify-content: flex-start;
+    column-count:2;
+    column-rule-style: solid;
+    column-rule-width:1px;
+    column-rule-color:brown;
+    text-align: left;
+    border: solid black 2px;
+    display: none;
+    width:auto;
+    
+    /* width: var(--canvas-width);
+    height: var(--canvas-height); */
+}
+
+#regist-rank{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    justify-content: center;
+    outline : solid black 3px;
+    color: white;
+    background-color : gray;
+    font-family: 'VT323, monospace';
+    font-size: var(--rank-font);
+    height: auto;
+    text-shadow:-1px -1px 0 black,
+    1px -1px 0 black,
+    -1px 1px 0 black,
+    1px 1px 0 black,  
+    -2px 0 0 black,
+    2px 0 0 black,
+    0 2px 0 black,
+    0 -2px 0 black;
+}
+#run-dist{
+    font-size: calc(var(--rank-font) / 1.5);
+}
+
+.margin-top {
+    margin-top: 1rem;
+}
+
+.margin-bottom {
+    margin-bottom: 1rem;
+}
+
+.svg_logo {
+    width: 30vmin;
+}
+
+.game-list {
+    flex-direction: row;
+    border: solid;
+    background-color: white;
+}
+
+.game-name {
+    font-size: 2rem;
+}
+
+.game-box {
+    position: relative;
+    outline: solid powderblue 4px;
+    display: block;
+    align-items: center;
+    background-color: white;
+    width: var(--canvas-width);
+    height: var(--canvas-height);
+    margin-top: 1vmin;
+    margin-bottom: 1vmin;
+}
+
+.restart-button{
+    text-align: center;
+    position:absolute;
+    border: solid 3px;
+    width: 20vmin;
+    height: auto;
+    font-size: var(--font-size);
+}
+
+#canvas{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+}
+
+#update-page{
+    flex-direction: row;
+    justify-content: center;
+    color:black;
+    font-size: 1rem;
+    font-weight: bold;
+    text-shadow: 1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+}
+
+#manual{
+    position:relative;
+    text-align: center;
+    width:inherit;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.jump-button{
+    margin-top: var(--jump-btn-margin);
+    border: solid 3px;
+    width: 40vw;
+    height: 10vh;
+    font-size: var(--font-size);
+}
+
+#restart-button:hover, #jump-button:hover{
+    color:deepskyblue;
+}
+#restart-button:active, #jump-button:active{
+    color:blue;
+}
+
+.update-link:active{
+    color: black;
+}
+
+.update-link:visited{
+    color: black;
+}
+.update-link:hover{
+    color: blue;
+}
+.yuri_con {
+    width: 70px;
+}
+
+.game-link {
+    color: blue;
+    text-decoration: none;
+    padding-right: 1rem;
+}
+
+.game-link:visited {
+    color: blue;
+}
+
+.game-link:hover {
+    color: cornflowerblue;
+}
+
+.game-link:active {
+    color: deepskyblue;
+}

@@ -1,0 +1,272 @@
+{
+	"textures": [
+		{
+			"image": "slime_sprite_sheet.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 102,
+				"h": 870
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "blue_slime_4.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 4,
+						"w": 100,
+						"h": 68
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 100,
+						"h": 68
+					}
+				},
+				{
+					"filename": "green_slime_4.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 4,
+						"w": 100,
+						"h": 68
+					},
+					"frame": {
+						"x": 1,
+						"y": 71,
+						"w": 100,
+						"h": 68
+					}
+				},
+				{
+					"filename": "yellow_slime_4.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 4,
+						"w": 100,
+						"h": 68
+					},
+					"frame": {
+						"x": 1,
+						"y": 141,
+						"w": 100,
+						"h": 68
+					}
+				},
+				{
+					"filename": "blue_slime_1.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 99,
+						"h": 71
+					},
+					"frame": {
+						"x": 1,
+						"y": 211,
+						"w": 99,
+						"h": 71
+					}
+				},
+				{
+					"filename": "blue_slime_3.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 99,
+						"h": 71
+					},
+					"frame": {
+						"x": 1,
+						"y": 284,
+						"w": 99,
+						"h": 71
+					}
+				},
+				{
+					"filename": "green_slime_1.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 99,
+						"h": 71
+					},
+					"frame": {
+						"x": 1,
+						"y": 357,
+						"w": 99,
+						"h": 71
+					}
+				},
+				{
+					"filename": "green_slime_3.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 99,
+						"h": 71
+					},
+					"frame": {
+						"x": 1,
+						"y": 430,
+						"w": 99,
+						"h": 71
+					}
+				},
+				{
+					"filename": "yellow_slime_1.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 99,
+						"h": 71
+					},
+					"frame": {
+						"x": 1,
+						"y": 503,
+						"w": 99,
+						"h": 71
+					}
+				},
+				{
+					"filename": "yellow_slime_3.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 99,
+						"h": 71
+					},
+					"frame": {
+						"x": 1,
+						"y": 576,
+						"w": 99,
+						"h": 71
+					}
+				},
+				{
+					"filename": "blue_slime_2.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 0,
+						"w": 96,
+						"h": 72
+					},
+					"frame": {
+						"x": 1,
+						"y": 649,
+						"w": 96,
+						"h": 72
+					}
+				},
+				{
+					"filename": "green_slime_2.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 0,
+						"w": 96,
+						"h": 72
+					},
+					"frame": {
+						"x": 1,
+						"y": 723,
+						"w": 96,
+						"h": 72
+					}
+				},
+				{
+					"filename": "yellow_slime_2.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 73
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 0,
+						"w": 96,
+						"h": 72
+					},
+					"frame": {
+						"x": 1,
+						"y": 797,
+						"w": 96,
+						"h": 72
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:057dbb186e92efb51968c47260bd7b06:068e78d9147f9a26e04907cf020c5a67:a8005ac3c9b14e27d25d6ef5702d3dcd$"
+	}
+}
