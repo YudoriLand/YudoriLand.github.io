@@ -17,7 +17,8 @@ const ASSETS_PATH = {
         '../assets/images/ui/jump_button.png',
         '../assets/images/ui/start_button.png'
     ],
-    SPLASH_LOGO_PNG: '../assets/images/logo/splash_logo.png',
+    COIN_SPRITE_SHEET:'../assets/images/object/coin_sprite_sheet.png',
+    COIN_SPRITE_JSON: '../assets/images/object/coin_sprite_json.json',
 }
 
 export default ASSETS_PATH;

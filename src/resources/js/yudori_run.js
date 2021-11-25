@@ -6,6 +6,7 @@ import ASSETS_PATH from './assets_path.js';
 import AlignGrid from './alignGrid.js';
 import Align from './align.js';
 import Slime from './slime';
+import Coin from './coin';
 import RankManager from './regist'
 
 var regist_rank = document.getElementById('regist-rank');
@@ -23,10 +24,16 @@ var restartBtn;
 var jumpBtn;
 var startBtn;
 var score;
-var runDist;
+var runDist = 0;
 var rankMng;
 var warning;
 
+var coinTimer = 0;
+var coinSpeed = 7;
+var coinList = [];
+var coinSpawnInterval = 200;
+var coinPosX = 840;
+var coinPosY = 100;
 
 var yuri_anim_sprite;
 var slimeList = [];
@@ -41,6 +48,7 @@ var bgmiddleSpeed = 0.3;
 var largeCloudSpeed = 0.2;
 var smallCloudSpeed = 0.4;
 var infinity = -1;
+var slowAnimRate = 10;
 var normalAnimRate = 15;
 var fastAnimRate = 20;
 var timer = 0;
@@ -64,7 +72,6 @@ var isFall = true;
 var isRise = false;
 var isButtonJump = false;
 var deathCount = 0;
-var keys = [];
 var slimeKey = [];
 
 class SceneMain extends Phaser.Scene {
@@ -101,6 +108,7 @@ class SceneMain extends Phaser.Scene {
         this.load.image("restart_button", ASSETS_PATH.UI_PNG[0]);
         this.load.image("jump_button", ASSETS_PATH.UI_PNG[1]);
         this.load.image("start_button", ASSETS_PATH.UI_PNG[2]);
+        this.load.atlas("coin_anim_sprite", ASSETS_PATH.COIN_SPRITE_SHEET, ASSETS_PATH.COIN_SPRITE_JSON)
     }
 
     create() {
@@ -183,9 +191,19 @@ class SceneMain extends Phaser.Scene {
             repeat: infinity,
         })
 
-        
-        // keys = ['yuri_run', 'yuri_first_jump', 'yuri_second_jump', 'yuri_fall']
+        this.anims.create({
+            key: 'coin_idle',
+            frames: this.anims.generateFrameNames('coin_anim_sprite', { prefix: 'coin_', suffix: '.png', start: 1, end: 4, zeroPad: 0 }),
+            frameRate: slowAnimRate,
+            repeat: infinity,
+        })
 
+        this.anims.create({
+            key: 'coin_pop',
+            frames: this.anims.generateFrameNames('coin_anim_sprite', { prefix: 'coin_effect_', suffix: '.png', start: 1, end: 4, zeroPad: 0 }),
+            frameRate: normalAnimRate,
+            repeat: 0,
+        })
         slimeKey = ['yellow_slime', 'blue_slime', 'green_slime']
 
         yuri_anim_sprite.play("yuri_run");
@@ -209,7 +227,7 @@ class SceneMain extends Phaser.Scene {
         aGrid.placeAtIndex(67, yuri_anim_sprite);
 
         Align.scaleToGameW(background_sky, this.game, 1.5);
-        Align.scaleToGameW(jumpBtn, this.game, 0.2);
+        Align.scaleToGameW(jumpBtn, this.game, 0.25);
         Align.scaleToGameW(restartBtn, this.game, .2);
         Align.scaleToGameW(startBtn, this.game, .2);
         Align.scaleToGameW(yuri_anim_sprite, this.game, .15);
@@ -265,9 +283,12 @@ class SceneMain extends Phaser.Scene {
        
     }
     calcScore() {
-        runDist = Math.floor(timer * 0.01);
+        if (isStart && timer != 0 && timer % 120 == 0){
+            runDist += 1;
+        }
         score.setText(runDist + ' m');
     }
+
     gameover() {
         if (deathCount == 0){
             deathCount++;
@@ -289,7 +310,6 @@ class SceneMain extends Phaser.Scene {
     }
     warningCycle() {
         if (isWarning && (warningTimer <= 150)) {
-            console.log(warningTimer);
             warningTimer++;
         }
         else {
@@ -303,7 +323,6 @@ class SceneMain extends Phaser.Scene {
     registRank(){
         nick_name = document.getElementById('nick-name').value;
         if (nick_name.length >= 11 || nick_name.length == 0){
-            console.log("켜짐");
             isWarning = true;
             warning.innerText = '1 ~ 10사이의 글자를 입력하세요.';
             warning.style.visibility = 'visible';
@@ -323,13 +342,67 @@ class SceneMain extends Phaser.Scene {
         warningTimer = 0;
         deathCount = 0;
         timer = 0;
-        for(var i in slimeList){
+        runDist = 0;
+        coinTimer = 0;
+        for(let i in slimeList){
             slimeList[i].destroy();
-            slimeList.splice();
+            delete slimeList[i];
         }
+        for (let j in coinList){
+            coinList[j].destroy();
+            delete coinList[j];
+        }
+
+        coinList.length = 0;
         slimeList.length = 0;
         this.scene.restart();
     }
+    coninSpawn() {
+        if (isDead) {
+            return;
+        }
+        if (!isStart) {
+            return;
+        }
+        coinTimer++;
+        
+        if (coinTimer % coinSpawnInterval == 0) {
+            this.createCoin();
+        }
+        this.coinLifeCycle();
+    }
+
+    createCoin() {
+        let coin = new Coin({ scene: this, x: coinPosX, y: coinPosY}, false);
+        Align.scaleToGameW(coin, this.game, 0.02);
+        coin.play('coin_idle');
+        coinList.push(coin);
+    }
+
+    coinLifeCycle() {
+        if (coinList.length != 0) {
+            for (let i in coinList) {
+                coinList[i].x -= coinSpeed;
+                if (coinList[i].x <= 0) {
+                    coinList[i].destroy();
+                    // coinList.splice(0, 1);
+                }
+                this.physics.add.overlap(yuri_anim_sprite, coinList[i], function (_yuri, _coin) {
+                    if (isDead) {
+                        return;
+                    }
+                    if (coinList[i].bool == false) {
+                        coinList[i].bool = true;
+                        runDist += 2;
+                        coinList[i].setScale(1.5, 1.5);
+                        coinList[i].play('coin_pop');
+                    }
+                    // console.log('is coin collision');
+                });
+            }
+        }
+    }
+
     enemySpawn() {
         if (!isStart) {
             return;
@@ -339,7 +412,7 @@ class SceneMain extends Phaser.Scene {
         
         if (timer % spawnInterval == 0) {
             randCreateType = Math.floor((Math.random() * 3) + 2);
-            for (var n = 1; n < randCreateType; n++) {
+            for (let n = 1; n < randCreateType; n++) {
                 randSlime = Math.floor(Math.random() * 3);
                 this.slimeCreate(n);
             }
@@ -348,7 +421,7 @@ class SceneMain extends Phaser.Scene {
     }
     enemyLifeCycle() {
         if (slimeList.length != 0) {
-            for (var i in slimeList) {
+            for (let i in slimeList) {
                 slimeList[i].x -= slimeList[i].speed;
                 if (slimeList[i].x <= 0) {
                     slimeList[i].destroy();
@@ -360,7 +433,7 @@ class SceneMain extends Phaser.Scene {
                     }
                     isDead = true;
                     slimeList[i].body.setSize(1, 1);
-                    console.log('is collision');
+                    // console.log('is collision');
                 });
             }
         }
@@ -447,7 +520,7 @@ class SceneMain extends Phaser.Scene {
         }
 
         if (isGround && yuri_anim_sprite.y > 305) {
-            console.log('yuri sink!!!');
+            // console.log('yuri sink!!!');
             yuri_anim_sprite.y = 298;
         }
     }
@@ -473,6 +546,7 @@ class SceneMain extends Phaser.Scene {
         }
         this.calcScore()
         this.enemySpawn();
+        this.coninSpawn();
         this.checkPlayerState();
         this.backgroundMove();
         this.buttonJump();
