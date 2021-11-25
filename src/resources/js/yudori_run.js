@@ -21,6 +21,7 @@ var background_front;
 var ground;
 var restartBtn;
 var jumpBtn;
+var startBtn;
 var score;
 var runDist;
 var rankMng;
@@ -49,6 +50,7 @@ var maxSlimeSpeed = 9;
 var minSlimeSpeed = 6;
 var spawnInterval = 100;
 
+var isStart = false;
 var isRanked = false;
 var isWarning = false;
 var isDead = false;
@@ -60,8 +62,8 @@ var isSecJump = false;
 var isLand = false;
 var isFall = true;
 var isRise = false;
+var isButtonJump = false;
 var deathCount = 0;
-
 var keys = [];
 var slimeKey = [];
 
@@ -71,6 +73,29 @@ class SceneMain extends Phaser.Scene {
         super('SceneMain');
     }
     preload() {
+        // this.add.image(428, 237, 'splash_logo', '../assets/images/logo/splash_logo.png');
+        // var loading = this.add.image(428, 237, 'splash_logo');
+        var loading = this.add.image(428, 237, 'splash_logo');
+
+        var progressBar = this.add.graphics();
+        var progressBox = this.add.graphics();
+        progressBox.fillStyle(0x222222, 0.8);
+        progressBox.fillRect(240, 270, 320, 50);
+
+        this.load.on('progress', function (value) {
+            progressBar.clear();
+            progressBar.fillStyle(0xffffff, 1);
+            progressBar.fillRect(250, 280, 300 * value, 30);
+        });
+
+        this.load.on('complete', function () {
+
+            progressBar.destroy();
+            progressBox.destroy();
+            loading.destroy();
+    
+        });
+
         this.load.atlas("yuri_anim_sprite", ASSETS_PATH.YURI_ANIM_SPRITE, ASSETS_PATH.YURI_ANIM_JSON);
         this.load.image("background_sky", ASSETS_PATH.BACKGROUND_PNG[0]);
         this.load.image("small_cloud", ASSETS_PATH.BACKGROUND_PNG[1]);
@@ -81,6 +106,7 @@ class SceneMain extends Phaser.Scene {
         this.load.atlas("slime_anim_sprite", ASSETS_PATH.SLIME_ANIM_SHEET, ASSETS_PATH.SLIME_ANIM_JSON);
         this.load.image("restart_button", ASSETS_PATH.UI_PNG[0]);
         this.load.image("jump_button", ASSETS_PATH.UI_PNG[1]);
+        this.load.image("start_button", ASSETS_PATH.UI_PNG[2]);
     }
 
     create() {
@@ -96,6 +122,8 @@ class SceneMain extends Phaser.Scene {
         ground = this.add.tileSprite(0, 0, 847, 125, 'ground');
         restartBtn = this.add.image(0, 0, "restart_button");
         jumpBtn = this.add.image(0, 0, "jump_button");
+        startBtn = this.add.image(0, 0, "start_button")
+
         score = this.add.text(0, 0, '- m', {
             fontFamily : 'VT323, monospace',
             align : 'justify',
@@ -168,6 +196,7 @@ class SceneMain extends Phaser.Scene {
 
         yuri_anim_sprite.play("yuri_run");
         yuri_anim_sprite.depth = 1;
+        startBtn.depth = 3;
 
         yuri_anim_sprite.setGravityY(1000);
 
@@ -180,6 +209,7 @@ class SceneMain extends Phaser.Scene {
         aGrid.placeAtIndex(49, background_sky);
         aGrid.placeAtIndex(108, jumpBtn);
         aGrid.placeAtIndex(93, restartBtn);
+        aGrid.placeAtIndex(49, startBtn);
         aGrid.placeAtIndex(16, score);
         score.x -= 20;
         aGrid.placeAtIndex(67, yuri_anim_sprite);
@@ -187,6 +217,7 @@ class SceneMain extends Phaser.Scene {
         Align.scaleToGameW(background_sky, this.game, 1.5);
         Align.scaleToGameW(jumpBtn, this.game, 0.2);
         Align.scaleToGameW(restartBtn, this.game, .2);
+        Align.scaleToGameW(startBtn, this.game, .2);
         Align.scaleToGameW(yuri_anim_sprite, this.game, .15);
 
 
@@ -196,14 +227,23 @@ class SceneMain extends Phaser.Scene {
         ground.body.allowGravity = false;
         ground.body.immovable = true;
 
-
+        startBtn.setInteractive();
+        startBtn.on('pointerdown', function(){
+            startBtn.setTint(0x7B7B7B);
+        })
+        startBtn.on('pointerup', function(){
+            startBtn.setTint(0xffffff);
+            this.scene.startGame();
+        })
         
         jumpBtn.setInteractive();
         jumpBtn.on('pointerdown', function(){
+            isButtonJump = true;
             jumpBtn.setTint(0x7B7B7B);
-            this.scene.jump();
+            // this.scene.jump();
         })
         jumpBtn.on('pointerup', function(){
+            isButtonJump = false;
             jumpBtn.setTint(0xffffff);
             this.scene.keyUp();
         })
@@ -225,6 +265,10 @@ class SceneMain extends Phaser.Scene {
         this.input.keyboard.on('keyup-SPACE', this.keyUp);
         submitBtn.addEventListener("click", this.registRank);
         // aGrid.showNumbers();
+    }
+    startGame(){
+        isStart = true;
+       
     }
     calcScore() {
         runDist = Math.floor(timer * 0.01);
@@ -293,6 +337,9 @@ class SceneMain extends Phaser.Scene {
         this.scene.restart();
     }
     enemySpawn() {
+        if (!isStart) {
+            return;
+        }
         timer++;
         randSpeed = Math.floor((Math.random() * maxSlimeSpeed) + minSlimeSpeed);
         
@@ -338,10 +385,33 @@ class SceneMain extends Phaser.Scene {
 
     }
     jump() {
-        if (!isKeyUp || isDead) {
+        if (isDead) {
             return;
         }
-        if (isJump && canSecondJump) {
+        if (isJump && canSecondJump && isKeyUp) {
+            canSecondJump = false;
+            isJump = false;
+            isSecJump = true;
+            yuri_anim_sprite.setVelocityY(-400);
+            yuri_anim_sprite.play('yuri_second_jump');
+        }
+        if (!isGround) {
+            return;
+        }
+        yuri_anim_sprite.play('yuri_first_jump');
+        yuri_anim_sprite.setVelocityY(-600);
+        isKeyUp = false;
+        isJump = true;
+        isGround = false;
+    }
+    buttonJump() {
+        if (isDead) {
+            return;
+        }
+        if (!isButtonJump){
+            return;
+        }
+        if (isJump && canSecondJump && isKeyUp) {
             canSecondJump = false;
             isJump = false;
             isSecJump = true;
@@ -382,7 +452,8 @@ class SceneMain extends Phaser.Scene {
             yuri_anim_sprite.play('yuri_run');
         }
 
-        if (isGround && yuri_anim_sprite.y > 300) {
+        if (isGround && yuri_anim_sprite.y > 305) {
+            console.log('yuri sink!!!');
             yuri_anim_sprite.y = 298;
         }
     }
@@ -397,6 +468,10 @@ class SceneMain extends Phaser.Scene {
         restartBtn.update();
         large_cloud.tilePositionX += largeCloudSpeed;
         small_cloud.tilePositionX += smallCloudSpeed;
+
+        if (isStart){
+            startBtn.destroy();
+        }
         
         if (isDead) {
             this.gameover();
@@ -406,6 +481,7 @@ class SceneMain extends Phaser.Scene {
         this.enemySpawn();
         this.checkPlayerState();
         this.backgroundMove();
+        this.buttonJump();
     }
 }
 
@@ -422,10 +498,16 @@ var config = {
         default: 'arcade',
         arcade: {
             gravity: { y: 100 },
-            debug: true
+            debug: false
         }
     },
-    scene: [SceneMain]
+    pack: {
+        files: [{
+            type: 'image', key: 'splash_logo', url: '../assets/images/logo/splash_logo.png'
+        }]
+    },
+
+    scene: [SceneMain] 
 };
 
 var game = new Phaser.Game(config);

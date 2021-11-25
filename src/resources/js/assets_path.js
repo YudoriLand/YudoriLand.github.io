@@ -14,8 +14,10 @@ const ASSETS_PATH = {
     SLIME_ANIM_SHEET: '../assets/images/slime_png/slime_sprite_sheet.png',
     SLIME_ANIM_JSON: '../assets/images/slime_png/slime_sprite_json.json',
     UI_PNG: ['../assets/images/ui/restart_button.png',
-        '../assets/images/ui/jump_button.png'
+        '../assets/images/ui/jump_button.png',
+        '../assets/images/ui/start_button.png'
     ],
+    SPLASH_LOGO_PNG: '../assets/images/logo/splash_logo.png',
 }
 
 export default ASSETS_PATH;
