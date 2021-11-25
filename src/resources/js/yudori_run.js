@@ -73,10 +73,6 @@ class SceneMain extends Phaser.Scene {
         super('SceneMain');
     }
     preload() {
-        // this.add.image(428, 237, 'splash_logo', '../assets/images/logo/splash_logo.png');
-        // var loading = this.add.image(428, 237, 'splash_logo');
-        var loading = this.add.image(428, 237, 'splash_logo');
-
         var progressBar = this.add.graphics();
         var progressBox = this.add.graphics();
         progressBox.fillStyle(0x222222, 0.8);
@@ -92,8 +88,6 @@ class SceneMain extends Phaser.Scene {
 
             progressBar.destroy();
             progressBox.destroy();
-            loading.destroy();
-    
         });
 
         this.load.atlas("yuri_anim_sprite", ASSETS_PATH.YURI_ANIM_SPRITE, ASSETS_PATH.YURI_ANIM_JSON);
@@ -501,12 +495,6 @@ var config = {
             debug: false
         }
     },
-    pack: {
-        files: [{
-            type: 'image', key: 'splash_logo', url: '../assets/images/logo/splash_logo.png'
-        }]
-    },
-
     scene: [SceneMain] 
 };
 
