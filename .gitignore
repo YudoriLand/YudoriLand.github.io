@@ -1,5 +1,6 @@
-dist/
+
 node_modules/
+src/
 package-lock.json
 analytics.html
 .firebase/
@@ -13,3 +14,4 @@ firebase_config.js
 firestore.rules
 webpack.config.js
 webpack.dev.js
+
