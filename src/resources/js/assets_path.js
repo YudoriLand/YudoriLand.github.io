@@ -15,7 +15,9 @@ const ASSETS_PATH = {
     SLIME_ANIM_JSON: '../assets/images/slime_png/slime_sprite_json.json',
     UI_PNG: ['../assets/images/ui/restart_button.png',
         '../assets/images/ui/jump_button.png',
-        '../assets/images/ui/start_button.png'
+        '../assets/images/ui/start_button.png',
+        '../assets/images/ui/fullscreen_icon_sprite_sheet.png',
+        '../assets/images/ui/fullscreen_icon_sprite_json.json',
     ],
     COIN_SPRITE_SHEET:'../assets/images/object/coin_sprite_sheet.png',
     COIN_SPRITE_JSON: '../assets/images/object/coin_sprite_json.json',

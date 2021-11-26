@@ -21,6 +21,7 @@ var background_middle;
 var background_front;
 var ground;
 var restartBtn;
+var fullscreenBtn;
 var jumpBtn;
 var startBtn;
 var score;
@@ -75,7 +76,7 @@ var deathCount = 0;
 var slimeKey = [];
 
 class SceneMain extends Phaser.Scene {
-
+    
     constructor() {
         super('SceneMain');
     }
@@ -109,6 +110,7 @@ class SceneMain extends Phaser.Scene {
         this.load.image("jump_button", ASSETS_PATH.UI_PNG[1]);
         this.load.image("start_button", ASSETS_PATH.UI_PNG[2]);
         this.load.atlas("coin_anim_sprite", ASSETS_PATH.COIN_SPRITE_SHEET, ASSETS_PATH.COIN_SPRITE_JSON)
+        this.load.atlas("fullscreen_icon_sheet", ASSETS_PATH.UI_PNG[3], ASSETS_PATH.UI_PNG[4])
     }
 
     create() {
@@ -125,6 +127,7 @@ class SceneMain extends Phaser.Scene {
         restartBtn = this.add.image(0, 0, "restart_button");
         jumpBtn = this.add.image(0, 0, "jump_button");
         startBtn = this.add.image(0, 0, "start_button")
+        fullscreenBtn = this.add.image(0, 0, "fullscreen_icon_sheet", "fullscreen_on.png");
 
         score = this.add.text(0, 0, '- m', {
             fontFamily : 'VT323, monospace',
@@ -133,6 +136,7 @@ class SceneMain extends Phaser.Scene {
             stroke : 'black',
             strokeThickness : 6,
         });
+        
         yuri_anim_sprite = this.physics.add.sprite(this.sys.game.config.width / 0, 0, "yuri_anim_sprite");
 
         this.anims.create({
@@ -204,12 +208,13 @@ class SceneMain extends Phaser.Scene {
             frameRate: normalAnimRate,
             repeat: 0,
         })
+     
         slimeKey = ['yellow_slime', 'blue_slime', 'green_slime']
 
         yuri_anim_sprite.play("yuri_run");
         yuri_anim_sprite.depth = 1;
         startBtn.depth = 3;
-
+        fullscreenBtn.depth = 3;
         yuri_anim_sprite.setGravityY(1000);
 
         aGrid.placeAtIndex(104, ground);
@@ -225,12 +230,15 @@ class SceneMain extends Phaser.Scene {
         aGrid.placeAtIndex(16, score);
         score.x -= 20;
         aGrid.placeAtIndex(67, yuri_anim_sprite);
+        aGrid.placeAtIndex(10, fullscreenBtn);
+        fullscreenBtn.y += 10;
 
         Align.scaleToGameW(background_sky, this.game, 1.5);
         Align.scaleToGameW(jumpBtn, this.game, 0.25);
         Align.scaleToGameW(restartBtn, this.game, .2);
         Align.scaleToGameW(startBtn, this.game, .2);
         Align.scaleToGameW(yuri_anim_sprite, this.game, .15);
+        Align.scaleToGameW(fullscreenBtn, this.game, 0.08);
 
 
         this.physics.add.existing(yuri_anim_sprite, false);
@@ -270,6 +278,24 @@ class SceneMain extends Phaser.Scene {
             restartBtn.setTint(0x7B7B7B);
             this.scene.restartGame();
         })
+
+        fullscreenBtn.setInteractive();
+        fullscreenBtn.on('pointerup', function () {
+
+            if (this.scale.isFullscreen)
+            {
+                fullscreenBtn.setFrame("fullscreen_on.png");
+
+                this.scale.stopFullscreen();
+            }
+            else
+            {
+                fullscreenBtn.setFrame("fullscreen_off.png");
+
+                this.scale.startFullscreen();
+            }
+
+        }, this);
 
         yuri_anim_sprite.body.setSize(30, 80);
 
