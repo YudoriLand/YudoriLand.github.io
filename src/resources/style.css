@@ -14,7 +14,7 @@
 *:before,
 *:after {
     box-sizing: inherit;
-    /* cursor: url(../resources/assets/images/yuri_png/mouse_empty.png), auto; */
+    /* cursor: url(../resources/assets/images/ui/mouse_pointer.png), auto; */
 }
 
 html{
@@ -71,7 +71,7 @@ body{
     top : 0;
     width: 2.8rem;
     height: 2.8rem;
-    transform: translate(-20%, -20%);
+    transform: translate(40%, 40%);
     pointer-events: none;
 }
 
