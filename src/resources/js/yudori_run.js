@@ -231,7 +231,8 @@ class SceneMain extends Phaser.Scene {
         score.x -= 20;
         aGrid.placeAtIndex(67, yuri_anim_sprite);
         aGrid.placeAtIndex(10, fullscreenBtn);
-        fullscreenBtn.y += 10;
+        fullscreenBtn.y += 20;
+        fullscreenBtn.x -= 15;
 
         Align.scaleToGameW(background_sky, this.game, 1.5);
         Align.scaleToGameW(jumpBtn, this.game, 0.25);
@@ -285,7 +286,6 @@ class SceneMain extends Phaser.Scene {
             if (this.scale.isFullscreen)
             {
                 fullscreenBtn.setFrame("fullscreen_on.png");
-
                 this.scale.stopFullscreen();
             }
             else
@@ -588,6 +588,7 @@ var config = {
         mode: Phaser.Scale.FIT,
         parent: 'game-box',
     },
+    fullScreenTarget: document.getElementById('game-box'),
     physics: {
         default: 'arcade',
         arcade: {
