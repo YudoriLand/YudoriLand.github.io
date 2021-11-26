@@ -13,6 +13,8 @@ var regist_rank = document.getElementById('regist-rank');
 var nick_name = document.getElementById('nick-name').value;
 var run_dist = document.getElementById('run-dist');
 var submitBtn = document.getElementById('submit');
+var gameScene = document.getElementById('game-scene');
+var gameBox = document.getElementById('game-box');
 var aGrid;
 var background_sky;
 var large_cloud;
@@ -120,10 +122,10 @@ class SceneMain extends Phaser.Scene {
 
         background_sky = this.add.image(0, 0, "background_sky");
         small_cloud = this.add.tileSprite(0, 0, 847, 245, "small_cloud");
+        background_middle = this.add.tileSprite(0, 0, 847, 349, "background_middle");
         large_cloud = this.add.tileSprite(0, 0, 847, 245, "large_cloud");
-        background_middle = this.add.tileSprite(0, 0, 847, 350, "background_middle");
-        background_front = this.add.tileSprite(0, 0, 847, 70, "background_front");
-        ground = this.add.tileSprite(0, 0, 847, 125, 'ground');
+        background_front = this.add.tileSprite(0, 0, 847, 72, "background_front");
+        ground = this.add.tileSprite(0, 0, 847, 124, 'ground');
         restartBtn = this.add.image(0, 0, "restart_button");
         jumpBtn = this.add.image(0, 0, "jump_button");
         startBtn = this.add.image(0, 0, "start_button")
@@ -218,11 +220,12 @@ class SceneMain extends Phaser.Scene {
         yuri_anim_sprite.setGravityY(1000);
 
         aGrid.placeAtIndex(104, ground);
-        ground.y += 1;
+        ground.y += 2;
         aGrid.placeAtIndex(38, large_cloud);
         aGrid.placeAtIndex(38, small_cloud);
-        aGrid.placeAtIndex(49, background_middle);
+        aGrid.placeAtIndex(38, background_middle);
         aGrid.placeAtIndex(82, background_front);
+        background_front.y -= 9
         aGrid.placeAtIndex(49, background_sky);
         aGrid.placeAtIndex(108, jumpBtn);
         aGrid.placeAtIndex(93, restartBtn);
@@ -240,7 +243,6 @@ class SceneMain extends Phaser.Scene {
         Align.scaleToGameW(startBtn, this.game, .2);
         Align.scaleToGameW(yuri_anim_sprite, this.game, .15);
         Align.scaleToGameW(fullscreenBtn, this.game, 0.08);
-
 
         this.physics.add.existing(yuri_anim_sprite, false);
         this.physics.add.existing(ground, true);
@@ -286,13 +288,15 @@ class SceneMain extends Phaser.Scene {
             if (this.scale.isFullscreen)
             {
                 fullscreenBtn.setFrame("fullscreen_on.png");
-                this.scale.stopFullscreen();
+                //this.scale.stopFullscreen();
+                this.closeFullScreen();
             }
             else
             {
                 fullscreenBtn.setFrame("fullscreen_off.png");
 
-                this.scale.startFullscreen();
+                //this.scale.startFullscreen();
+                this.openFullScreen();
             }
 
         }, this);
@@ -304,6 +308,54 @@ class SceneMain extends Phaser.Scene {
         submitBtn.addEventListener("click", this.registRank);
         // aGrid.showNumbers();
     }
+
+    fullScreenOn(){
+        gameBox.requestFullscreen();
+    }
+    openFullScreen() {
+
+        if (gameBox.requestFullscreen) {
+      
+            gameBox.requestFullscreen();
+      
+        } else if (gameBox.mozRequestFullScreen) { 
+      
+            gameBox.mozRequestFullScreen();
+      
+        } else if (gameBox.webkitRequestFullscreen) { 
+      
+            gameBox.webkitRequestFullscreen();
+      
+        } else if (gameBox.msRequestFullscreen) { 
+      
+            gameBox.msRequestFullscreen();
+      
+        }
+      
+      }
+    closeFullScreen() {
+
+        if (document.exitFullscreen) {
+      
+          document.exitFullscreen();
+      
+        } else if (document.mozCancelFullScreen) {
+      
+          document.mozCancelFullScreen();
+      
+        } else if (document.webkitExitFullscreen) {
+      
+          document.webkitExitFullscreen();
+      
+        } else if (document.msExitFullscreen) {
+      
+          document.msExitFullscreen();
+      
+        }
+      
+      }
+
+
     startGame(){
         isStart = true;
        
@@ -582,8 +634,8 @@ class SceneMain extends Phaser.Scene {
 
 var config = {
     type: Phaser.AUTO,
-    width: 847,
-    height: 474,
+    width: 848,
+    height: 477,
     scale: {
         mode: Phaser.Scale.FIT,
         parent: 'game-box',
