@@ -460,11 +460,17 @@ class SceneMain extends Phaser.Scene {
     coinLifeCycle() {
         if (coinList.length != 0) {
             for (let i in coinList) {
-                coinList[i].x -= coinSpeed;
-                if (coinList[i].x <= 0) {
+                if (coinList[i].x <= -10) {
                     coinList[i].destroy();
-                    // coinList.splice(0, 1);
+                    delete coinList[i];
+                    if(coinList[0] == null){
+                        coinList.shift();
+                    }
                 }
+                if (coinList[i] == null){
+                    return;
+                }
+                coinList[i].x -= coinSpeed;
                 this.physics.add.overlap(yuri_anim_sprite, coinList[i], function (_yuri, _coin) {
                     if (isDead) {
                         return;
@@ -500,18 +506,23 @@ class SceneMain extends Phaser.Scene {
     enemyLifeCycle() {
         if (slimeList.length != 0) {
             for (let i in slimeList) {
-                slimeList[i].x -= slimeList[i].speed;
-                if (slimeList[i].x <= 0) {
+                if (slimeList[i].x <= -150) {
                     slimeList[i].destroy();
                     delete slimeList[i];
+                    if(slimeList[0] == null){
+                        slimeList.shift();
+                    }
                 }
+                if (slimeList[i] == null){
+                    return;
+                }
+                slimeList[i].x -= slimeList[i].speed;
                 this.physics.add.overlap(yuri_anim_sprite, slimeList[i], function (_yuri, _slime) {
                     if (isDead) {
                         return;
                     }
                     isDead = true;
-                    slimeList[i].body.setSize(1, 1);
-                    // console.log('is collision');
+                    console.log('is collision');
                 });
             }
         }
