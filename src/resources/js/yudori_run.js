@@ -133,12 +133,14 @@ class SceneMain extends Phaser.Scene {
 
         score = this.add.text(0, 0, '- m', {
             fontFamily : 'VT323, monospace',
-            align : 'justify',
             fontSize : '50px',
+            align : 'center',
             stroke : 'black',
             strokeThickness : 6,
         });
         
+        score.setOrigin(0.5);
+
         yuri_anim_sprite = this.physics.add.sprite(this.sys.game.config.width / 0, 0, "yuri_anim_sprite");
 
         this.anims.create({
@@ -231,7 +233,6 @@ class SceneMain extends Phaser.Scene {
         aGrid.placeAtIndex(93, restartBtn);
         aGrid.placeAtIndex(49, startBtn);
         aGrid.placeAtIndex(16, score);
-        score.x -= 20;
         aGrid.placeAtIndex(67, yuri_anim_sprite);
         aGrid.placeAtIndex(10, fullscreenBtn);
         fullscreenBtn.y += 20;
