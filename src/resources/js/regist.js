@@ -9,9 +9,7 @@ const db = firebase.firestore();
 var yudoriCollection = db.collection("yudorirun");
 
 export default class RankManager {
-    constructor(name, score) {
-        this.name = name;
-        this.score = score;
+    constructor() {
     }
     async getData() {
         const snapshot = await yudoriCollection.get();
@@ -20,35 +18,12 @@ export default class RankManager {
         await array.sort((a, b) => b.score - a.score);
         return array;
     }
-    setData(){
+    static setData(_name, _score){
         yudoriCollection.add({
-            name : this.name,
-            score : this.score
+            name : _name,
+            score : _score
         })
         alert("랭킹 등록 완료");
     }
 
 }
-// var nickname = document.getElementById("nick-name").value;
-
-// console.log(nickname);
-
-// document.getElementById("submit").addEventListener('click', function(event){
-//     event.preventDefault();
-
-
-
-//     let name = document.getElementById("nickname");
-
-//     if (name.value==""){
-//         alert("none");
-//     }
-//     else {
-//         db.collection("user").add({
-//             nickname : name.value,
-//             password : "1234"
-//         })
-
-        
-//     }
-// })

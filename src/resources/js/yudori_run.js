@@ -408,8 +408,7 @@ class SceneMain extends Phaser.Scene {
             return;
         }
         else{
-            rankMng = new RankManager(nick_name, runDist);
-            rankMng.setData();
+            RankManager.setData(nick_name, runDist);
             isRanked = true;
         }
     }
